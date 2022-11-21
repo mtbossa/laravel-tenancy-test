@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'middleware' => ['auth:sanctum'],
+], function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
+
+Route::group([
+    'middleware' => [\Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class],
+], function () {
+    Route::get('/tenant-test', function () {
+        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+    });
 });
 
 Route::get('test', function () {
