@@ -51,7 +51,7 @@ return [
          * Tenant database names are created like this:
          * prefix + tenant_id + suffix.
          */
-        'prefix' => 'tenant',
+        'prefix' => 'tenant_',
         'suffix' => '',
 
         /**
@@ -60,7 +60,7 @@ return [
         'managers' => [
             'sqlite' => Stancl\Tenancy\TenantDatabaseManagers\SQLiteDatabaseManager::class,
             'mysql' => Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager::class,
-            'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager::class,
+//            'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager::class,
 
         /**
          * Use this database manager for MySQL to have a DB user created for each tenant database.
@@ -72,7 +72,7 @@ return [
          * Disable the pgsql manager above, and enable the one below if you
          * want to separate tenant DBs by schemas rather than databases.
          */
-            // 'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLSchemaManager::class, // Separate by schema instead of database
+             'pgsql' => Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLSchemaManager::class, // Separate by schema instead of database
         ],
     ],
 
@@ -99,11 +99,11 @@ return [
         /**
          * Each disk listed in the 'disks' array will be suffixed by the suffix_base, followed by the tenant_id.
          */
-        'suffix_base' => 'tenant',
+        'suffix_base' => 'tenant_',
         'disks' => [
             'local',
             'public',
-            // 's3',
+             's3',
         ],
 
         /**
