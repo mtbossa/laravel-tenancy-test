@@ -24,6 +24,7 @@ Route::group([
     Route::post("/logout", [\App\Http\Controllers\LoginController::class, "logout"]);
 });
 
+// Needed for sanctum to work with Tenancy for Laravel package
 Route::group(['prefix' => config('sanctum.prefix', 'sanctum')], static function () {
     Route::get('/csrf-cookie',[\Laravel\Sanctum\Http\Controllers\CsrfCookieController::class, 'show'])
         // Use tenancy initialization middleware of your choice
