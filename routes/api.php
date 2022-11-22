@@ -20,13 +20,21 @@ Route::group([
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::get('/test-central', function (Request $request) {
+        return "central";
+    });
 });
 
 Route::group([
-    'middleware' => [\Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class],
+    'middleware' => [\Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class, 'auth:sanctum'],
 ], function () {
-    Route::get('/tenant-test', function () {
-        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
+    Route::get('/tenant-user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('/test-tenant', function (Request $request) {
+        return "tenant";
     });
 });
 

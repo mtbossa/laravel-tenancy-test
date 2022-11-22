@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Stancl\JobPipeline\JobPipeline;
 use Stancl\Tenancy\Events;
+use Stancl\Tenancy\Features\UniversalRoutes;
 use Stancl\Tenancy\Jobs;
 use Stancl\Tenancy\Listeners;
 use Stancl\Tenancy\Middleware;
@@ -140,6 +141,9 @@ class TenancyServiceProvider extends ServiceProvider
         ];
 
         Middleware\InitializeTenancyByRequestData::$queryParameter = null;
+        UniversalRoutes::$identificationMiddlewares = [
+            Middleware\InitializeTenancyByRequestData::class
+        ];
 
         foreach (array_reverse($tenancyMiddleware) as $middleware) {
             $this->app[\Illuminate\Contracts\Http\Kernel::class]->prependToMiddlewarePriority($middleware);

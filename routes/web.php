@@ -17,5 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post("/login", [\App\Http\Controllers\LoginController::class, "authenticate"]);
-Route::post("/logout", [\App\Http\Controllers\LoginController::class, "logout"]);
+Route::group([
+    'middleware' => ['universal', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class],
+], function () {
+    Route::post("/login", [\App\Http\Controllers\LoginController::class, "authenticate"]);
+    Route::post("/logout", [\App\Http\Controllers\LoginController::class, "logout"]);
+});
+
+Route::group(['prefix' => config('sanctum.prefix', 'sanctum')], static function () {
+    Route::get('/csrf-cookie',[\Laravel\Sanctum\Http\Controllers\CsrfCookieController::class, 'show'])
+        // Use tenancy initialization middleware of your choice
+        ->middleware(['universal', 'web', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class])
+        ->name('sanctum.csrf-cookie');
+});
