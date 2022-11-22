@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
              'email' => 't@t',
          ]);
 
-        \App\Models\Tenant::create();
-        \App\Models\Tenant::create();
+        \App\Models\Tenant::create(["id" => "foo"]);
+        \App\Models\Tenant::create(["id" => "bar"]);
 
         \App\Models\Tenant::all()->runForEach(function () {
             \App\Models\User::factory(5)->create();
