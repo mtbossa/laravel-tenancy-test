@@ -28,6 +28,10 @@ Route::group([
     Route::get('/test-central', function (Request $request) {
         return "central";
     });
+    Route::get('/dispatch-test-event', function (Request $request) {
+        \App\Events\Test::dispatch();
+        return "emitted";
+    });
 });
 
 Route::group([
