@@ -31,6 +31,6 @@ class Test implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('testing');
+        return new PrivateChannel('test2.' . 1);
     }
 }
