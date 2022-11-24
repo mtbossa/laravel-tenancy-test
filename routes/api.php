@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-\Illuminate\Support\Facades\Broadcast::routes(['middleware' => ['auth:sanctum']]);
+\Illuminate\Support\Facades\Broadcast::routes(['middleware' => ['universal', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class, 'auth:sanctum']]);
 
 Route::group([
     'middleware' => ['universal', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class, 'auth:sanctum'],

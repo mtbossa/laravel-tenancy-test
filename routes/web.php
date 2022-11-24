@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group([
     'middleware' => ['universal', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class],
 ], function () {
+    Route::get('/', function () {
+        return phpinfo();
+    });
     Route::post("/login", [\App\Http\Controllers\LoginController::class, "authenticate"]);
     Route::post("/logout", [\App\Http\Controllers\LoginController::class, "logout"]);
 });

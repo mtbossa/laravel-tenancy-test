@@ -131,7 +131,7 @@ class TenancyServiceProvider extends ServiceProvider
     {
         $tenancyMiddleware = [
             // Even higher priority than the initialization middleware
-            Middleware\PreventAccessFromCentralDomains::class,
+//            Middleware\PreventAccessFromCentralDomains::class,
 
 //            Middleware\InitializeTenancyByDomain::class,
 //            Middleware\InitializeTenancyBySubdomain::class,

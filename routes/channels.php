@@ -18,7 +18,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('test.{testId}', function ($user, $testId) {
-    return false;
+    return true;
 });
 
 Broadcast::channel('test2.{testId}', function ($user, $testId) {
