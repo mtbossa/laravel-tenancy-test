@@ -22,5 +22,11 @@ Broadcast::channel('test.{testId}', function ($user, $testId) {
 });
 
 Broadcast::channel('test2.{testId}', function ($user, $testId) {
-    return true;
+    return false;
+});
+
+Broadcast::channel('test3.{tenantId}', function ($user, string $tenantId) {
+    $currentTenant = tenant();
+
+    return $currentTenant->id === $tenantId;
 });
