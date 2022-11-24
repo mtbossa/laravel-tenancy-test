@@ -30,3 +30,8 @@ Broadcast::channel('test3.{tenantId}', function ($user, string $tenantId) {
 
     return $currentTenant->id === $tenantId;
 });
+
+Broadcast::channel('test4', function ($user) {
+    $isTenant = (bool) tenant();
+    return !$isTenant;
+});
