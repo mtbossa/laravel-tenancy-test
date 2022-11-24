@@ -31,6 +31,7 @@ class Test implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return [ new PrivateChannel('test2.' . 1), new PrivateChannel('test.' . 1)];
+        $tenantId = tenant()->id;
+        return [ new PrivateChannel('test2.' . 1), new PrivateChannel('test.' . 1), new PrivateChannel('test3.' . $tenantId)];
     }
 }

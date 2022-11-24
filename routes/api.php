@@ -31,7 +31,7 @@ Route::group([
         return "central";
     });
     Route::get('/dispatch-test-event', function (Request $request) {
-        \App\Events\Test::dispatch();
+        dispatch(new \App\Events\Test())->onConnection('central');
         return "emitted";
     });
 });
@@ -42,6 +42,10 @@ Route::group([
     Route::post("/logout", [\App\Http\Controllers\LoginController::class, "logout"]);
     Route::get('/test-tenant', function (Request $request) {
         return "tenant";
+    });
+    Route::get('/tenant-dispatch-test-event', function (Request $request) {
+        \App\Events\Test::dispatch();
+        return "emitted";
     });
 });
 
