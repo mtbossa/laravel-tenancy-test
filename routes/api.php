@@ -31,7 +31,7 @@ Route::group([
         return "central";
     });
     Route::get('/dispatch-test-event', function (Request $request) {
-        dispatch(new \App\Events\Test())->onConnection('central');
+        event(new \App\Events\Test(true));
         return "emitted";
     });
 });

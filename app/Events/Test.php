@@ -14,14 +14,18 @@ class Test implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public array $order = ["oi"];
+    public string $queue = 'default';
+    public string $connection = 'database';
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(bool $central = false)
     {
-        //
+        if ($central) {
+            $this->connection = 'central';
+        }
     }
 
     /**
@@ -31,7 +35,10 @@ class Test implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        $tenantId = tenant()->id;
+        $tenantId = null;
+        if (tenant()) {
+            $tenantId = tenant()->id;
+        }
         return [ new PrivateChannel('test2.' . 1), new PrivateChannel('test.' . 1), new PrivateChannel('test3.' . $tenantId)];
     }
 }
