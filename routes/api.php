@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Needed for channels to work both with Sanctum and Tenancy for Lravel
 \Illuminate\Support\Facades\Broadcast::routes(['middleware' => ['universal', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class, 'auth:sanctum']]);
 
+
+// Common routes for central and tenant app
 Route::group([
     'middleware' => ['universal', \Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class, 'auth:sanctum'],
 ], function () {
@@ -24,11 +27,12 @@ Route::group([
     });
 });
 
+// Central routes only
 Route::group([
     'middleware' => ['auth:sanctum'],
 ], function () {
     Route::get('/test-central', function (Request $request) {
-        return "central";
+        return ["central", "user" => $request->user()];
     });
     Route::get('/dispatch-test-event', function (Request $request) {
         event(new \App\Events\Test(true));
@@ -39,9 +43,8 @@ Route::group([
 Route::group([
     'middleware' => [\Stancl\Tenancy\Middleware\InitializeTenancyByRequestData::class, 'auth:sanctum'],
 ], function () {
-    Route::post("/logout", [\App\Http\Controllers\LoginController::class, "logout"]);
     Route::get('/test-tenant', function (Request $request) {
-        return "tenant";
+        return ["tenant", "user" => $request->user()];
     });
     Route::get('/tenant-dispatch-test-event', function (Request $request) {
         \App\Events\Test::dispatch();

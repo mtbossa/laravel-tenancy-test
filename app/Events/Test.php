@@ -39,6 +39,6 @@ class Test implements ShouldBroadcast
         if (tenant()) {
             $tenantId = tenant()->id;
         }
-        return [ new PrivateChannel('test2.' . 1), new PrivateChannel('test.' . 1), new PrivateChannel('test3.' . $tenantId)];
+        return [ new Channel('testchannel'), new PrivateChannel('test2.' . 1), new PrivateChannel('test.' . 1), new PrivateChannel('test3.' . $tenantId)];
     }
 }
